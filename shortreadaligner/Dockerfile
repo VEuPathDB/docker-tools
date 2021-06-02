@@ -34,8 +34,8 @@ RUN wget -O bedGraphToBigWig http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_
 RUN chmod guo+x bedGraphToBigWig
 RUN mv bedGraphToBigWig /usr/local/bin/
 
-
 COPY ./bin/* /usr/local/bin/
+COPY ./lib/perl/* /usr/local/lib/site_perl/
 
 USER biodocker
 
