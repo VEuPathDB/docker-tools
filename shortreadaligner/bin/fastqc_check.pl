@@ -19,7 +19,7 @@ if(scalar @encodings != 1) {
 }
 
 open(OUT, ">$outputFile") or die "Could not open $outputFile for writing: $!";
-print OUT $encodings[0] . "\\n";
+print OUT $encodings[0];
 close OUT;
 
 sub phred {                                                                                                                                                          
