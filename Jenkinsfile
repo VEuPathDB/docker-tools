@@ -9,6 +9,6 @@ node('centos8') {
   checkout scm
   builder.buildContainers([
     [ name: 'shortreadaligner', dockerfile: "shortreadaligner/Dockerfile", path: "shortreadaligner" ],
-    [ name: 'vcfParserCNV', dockerfile: "vcfParserCNV/Dockerfile", path: "vcfParserCNV" ],
+    [ name: 'vcf_parser_cnv', dockerfile: "vcf_parser_cnv/Dockerfile", path: "vcf_parser_cnv" ],
   ])
 }
