@@ -11,7 +11,7 @@ my ($bedFile, $summaryMetrics);
 open (F, "$summaryMetrics") or die  "Cannot open $summaryMetrics for reading\n";
 my $totalReads;
 while ( my $line = <F> ) {
-    next unless $line =~/^PAIR/; #TODO need to do this for single end reads too
+    next unless $line =~/^PAIR|^UNPAIRED/;
     $totalReads = (split /\t/, $line)[5];
     chomp $totalReads
 }
