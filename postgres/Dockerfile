@@ -72,17 +72,6 @@ COPY bin/*.jar $GUS_HOME/lib/java/db_driver/
 
 WORKDIR /gusApp
 
-RUN chown -R postgres **/**/**/**/**/**/**/**/**/**/**/*
-RUN chown -R postgres **/**/**/**/**/**/**/**/**/**/*
-RUN chown -R postgres **/**/**/**/**/**/**/**/**/*
-RUN chown -R postgres **/**/**/**/**/**/**/**/*
-RUN chown -R postgres **/**/**/**/**/**/**/*
-RUN chown -R postgres **/**/**/**/**/**/*
-RUN chown -R postgres **/**/**/**/**/*
-RUN chown -R postgres **/**/**/**/*
-RUN chown -R postgres **/**/**/*
-RUN chown -R postgres **/**/*
-RUN chown -R postgres **/*
 RUN chown -R postgres *
 
 COPY bin/*.sh /docker-entrypoint-initdb.d
