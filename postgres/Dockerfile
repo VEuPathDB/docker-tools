@@ -1,4 +1,12 @@
-FROM postgres:latest
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#
+#   Build Service & Dependencies
+#
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+FROM postgres:latest AS prep
+
+ARG GITHUB_USERNAME
+ARG GITHUB_TOKEN
 
 WORKDIR /usr/bin/
 
@@ -9,15 +17,12 @@ RUN apt-get -qq update --fix-missing \
 WORKDIR /gusApp
 WORKDIR /gusApp/gus_home
 WORKDIR /gusApp/project_home
-
 ENV GUS_HOME=/gusApp/gus_home
 ENV PROJECT_HOME=/gusApp/project_home
 ENV PATH=$PROJECT_HOME/install/bin:$PATH
 ENV PATH=$GUS_HOME/bin:$PATH
 ENV PATH=$GUS_HOME:$PATH
 ENV PATH=$PROJECT_HOME:$PATH
-ARG GITHUB_USERNAME
-ARG GITHUB_TOKEN
 ENV GITHUB_USERNAME=$GITHUB_USERNAME
 ENV GITHUB_TOKEN=$GITHUB_TOKEN
 
@@ -69,10 +74,29 @@ RUN bld ApiCommonData/Load
 RUN touch $PROJECT_HOME/GUS/Model/lib/perl/generated
 RUN bld GUS
 
-COPY bin/gus.config /gusApp/gus_home/config/gus.config
-COPY bin/*.jar $GUS_HOME/lib/java/db_driver/
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#
+#   Run the service
+#
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+FROM postgres:latest
+
+WORKDIR /usr/bin/
+
+RUN apt-get -qq update --fix-missing \
+  && apt-get install -y wget perl libgomp1 git ant build-essential unzip default-jre python3 cpanminus bioperl libaio1 emacs libjson-perl libmodule-install-rdf-perl libxml-parser-perl libdate-manip-perl libtext-csv-perl libstatistics-descriptive-perl libtree-dagnode-perl libxml-simple-perl maven default-jdk libdbd-pg-perl sudo && apt-get clean \
+  && apt-get purge && rm -rf /var/lib/apt/lists/* /tmp/*
 
 WORKDIR /gusApp
+ENV GUS_HOME=/gusApp/gus_home
+ENV PROJECT_HOME=/gusApp/project_home
+ENV PATH=$PROJECT_HOME/install/bin:$PATH
+ENV PATH=$GUS_HOME/bin:$PATH
+ENV PATH=$GUS_HOME:$PATH
+ENV PATH=$PROJECT_HOME:$PATH
+COPY --from=prep /gusApp /gusApp
+COPY bin/gus.config /gusApp/gus_home/config/gus.config
+COPY bin/*.jar $GUS_HOME/lib/java/db_driver/
 
 RUN chown -R postgres *
 
