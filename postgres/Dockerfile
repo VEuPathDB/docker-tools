@@ -3,7 +3,7 @@
 #   Build Service & Dependencies
 #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-FROM postgres:latest AS prep
+FROM ubuntu:22.04 AS prep
 
 ARG GITHUB_USERNAME
 ARG GITHUB_TOKEN
