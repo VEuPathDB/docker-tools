@@ -1,0 +1,25 @@
+diff --git a/src/aggregate_scorefilter_vals.cpp b/src/aggregate_scorefilter_vals.cpp
+index e9f8123..572bc37 100644
+--- a/src/aggregate_scorefilter_vals.cpp
++++ b/src/aggregate_scorefilter_vals.cpp
+@@ -151,10 +151,8 @@ int main(int argc, char *argv[]) {
+ 
+         }
+ 
+-        bool fileOk = std::getline(cin, line);
+-
+         vector<float> ** v;
+-        while(fileOk && sscanf(line.c_str(), ">%s %d", cid, &clen) == 2) {
++        while(std::getline(cin, line) && sscanf(line.c_str(), ">%s %d", cid, &clen) == 2) {
+             if(!arrays_created) {
+                 createFilterValArrays(&v, clen, num_cols);
+                 arrays_created = true;
+@@ -162,7 +160,7 @@ int main(int argc, char *argv[]) {
+             int strand = 0;
+             vector<float> sigVals(num_cols);
+ 
+-            while((fileOk = std::getline(cin, line)) &&
++            while((std::getline(cin, line)) &&
+                   sscanf(line.c_str(), ">%s %d", cid, &clen) != 2) {
+                 int sigPos1 = 1, sigPos2 = 0;
+                 std::istringstream isline(line);

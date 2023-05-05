@@ -1,0 +1,22 @@
+diff --git a/src/aggregate_signalfilter_vals.cpp b/src/aggregate_signalfilter_vals.cpp
+index 0f91bba..e4ed6d3 100644
+--- a/src/aggregate_signalfilter_vals.cpp
++++ b/src/aggregate_signalfilter_vals.cpp
+@@ -125,15 +125,14 @@ int main(int argc, char *argv[]) {
+ 
+         }
+ 
+-        bool fileOk = std::getline(cin, line);
+-        while(fileOk && sscanf(line.c_str(), ">%s %d", cid, &clen) == 2) {
++        while(std::getline(cin, line) && sscanf(line.c_str(), ">%s %d", cid, &clen) == 2) {
+             if(!arraysCreated) {
+                 createFilterValArrays(&v, clen, fillchr);
+                 arraysCreated = true;
+             }
+             int strand = 0;
+             int currPos = 1;
+-            while((fileOk = std::getline(cin, line)) &&
++            while((std::getline(cin, line)) &&
+                   sscanf(line.c_str(), ">%s %d", cid, &clen) != 2) {
+                 int sigPos1 = 1, len = 1, pos;
+                 char sigVal;

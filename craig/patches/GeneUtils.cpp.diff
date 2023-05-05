@@ -1,0 +1,13 @@
+diff --git a/src/GeneUtils.cpp b/src/GeneUtils.cpp
+index 3c7a1e6..409c8e3 100644
+--- a/src/GeneUtils.cpp
++++ b/src/GeneUtils.cpp
+@@ -250,7 +250,7 @@ namespace craig {
+                  * We create a new annotSeq for each sequence
+                  */
+                 sigma->checkSeq((char *)exonSeq.c_str());
+-                annotSeqObj = new Sequence(annotSeq, (char *)exonSeq.c_str(), false);
++                annotSeqObj = new Sequence(annotSeq, (char *)exonSeq.c_str(), sigma, false);
+                 annotSeqs.push_back(annotSeqObj);
+             }
+             else  // find the annotSeq entry
