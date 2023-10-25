@@ -13,8 +13,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 USER root
 
-# Install dependencies
-RUN apt-get update && apt-get install -y build-essential wget unzip default-jre python3 python tabix procps && apt-get clean && apt-get purge && rm -rf /var/lib/apt/lists/* /tmp/*
+# this was causing an issue with apt update;  doesn't appear that any packages are installed from backports though
+RUN rm /etc/apt/sources.list.d/backports.list
+
+# # Install dependencies
+ RUN apt-get update && apt-get install -y build-essential wget unzip default-jre python3 python tabix procps liblzma-dev libcurl4-gnutls-dev zlib1g-dev libbz2-dev python-dev && apt-get clean && apt-get purge && rm -rf /var/lib/apt/lists/* /tmp/*
 
 # download software
 WORKDIR /usr/local/
@@ -28,13 +31,6 @@ RUN tar -xvzf v${hisat2_version}.tar.gz
 RUN unzip Trimmomatic-${trimmomatic_version}.zip
 RUN tar -xvzf ngsutils-${ngsutils_version}.tar.gz
 RUN tar -zxvf bedtools-${bedtools_version}.tar.gz
-
-## install ngutils dependencies
-RUN apt-get update && apt-get install -y zlib1g-dev
-RUN apt-get update && apt-get install -y libbz2-dev
-RUN apt-get update && apt-get install -y liblzma-dev libcurl4-gnutls-dev
-RUN apt-get update && apt-get install -y python-dev
-
 
 # # install hisat2
 WORKDIR /usr/local/hisat2-${hisat2_version}
@@ -63,5 +59,3 @@ COPY ./bin/* /usr/local/bin/
 COPY ./lib/perl/* /usr/local/lib/site_perl/
 
 USER biodocker
-
-
