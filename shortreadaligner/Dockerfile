@@ -19,6 +19,15 @@ RUN rm /etc/apt/sources.list.d/backports.list
 # # Install dependencies
  RUN apt-get update && apt-get install -y build-essential wget unzip default-jre python3 python tabix procps liblzma-dev libcurl4-gnutls-dev zlib1g-dev libbz2-dev python-dev && apt-get clean && apt-get purge && rm -rf /var/lib/apt/lists/* /tmp/*
 
+RUN mkdir pipinstall \
+  && cd pipinstall \
+  && wget https://bootstrap.pypa.io/get-pip.py \
+  && python3 ./get-pip.py \
+  && pip install --index-url=https://pypi.python.org/simple/ pysam>=0.4.1 \
+  && pip install --index-url=https://pypi.python.org/simple/ coverage>=3.5.3 \
+  && pip install --index-url=https://pypi.python.org/simple/ eta>=0.9 \
+  && pip install --index-url=https://pypi.python.org/simple/ swalign>=0.2
+
 # download software
 WORKDIR /usr/local/
 RUN wget https://github.com/DaehwanKimLab/hisat2/archive/v${hisat2_version}.tar.gz
@@ -40,7 +49,8 @@ RUN ln -s /usr/local/hisat2-${hisat2_version}/hisat2-build /usr/local/bin/hisat2
 
 # install ngsutils
 WORKDIR /usr/local/ngsutils-ngsutils-${ngsutils_version}
-RUN sed -i 's/coverage>=3.5.3/coverage>=3.5.3,<6.0/g' requirements.txt
+COPY bin/init.sh init.sh
+RUN chmod 777 -R /usr/local/ngsutils-ngsutils-${ngsutils_version}
 RUN make
 RUN ln -s /usr/local/ngsutils-ngsutils-${ngsutils_version}/bin/bamutils /usr/local/bin/bamutils
 
