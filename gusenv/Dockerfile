@@ -5,6 +5,9 @@ ARG GH_TOKEN
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+ENV GITHUB_USERNAME=${GH_USERNAME}
+ENV GITHUB_TOKEN=${GH_TOKEN}
+
 RUN apt-get update && apt-get install -y git build-essential ant wget unzip perl unzip emacs maven && apt-get clean && apt-get purge && rm -rf /var/lib/apt/lists/* /tmp/*
 
 WORKDIR /gusApp
@@ -22,8 +25,8 @@ RUN mkdir -p /root/.m2 && \
     echo '  <servers>' >> /root/.m2/settings.xml && \
     echo '    <server>' >> /root/.m2/settings.xml && \
     echo '      <id>veupathdb</id>' >> /root/.m2/settings.xml && \
-    echo "      <username>${GH_USERNAME}</username>" >> /root/.m2/settings.xml && \
-    echo "      <password>${GH_TOKEN}</password>" >> /root/.m2/settings.xml && \
+    echo "      <username>${GITHUB_USERNAME}</username>" >> /root/.m2/settings.xml && \
+    echo "      <password>${GITHUB_TOKEN}</password>" >> /root/.m2/settings.xml && \
     echo '    </server>' >> /root/.m2/settings.xml && \
     echo '  </servers>' >> /root/.m2/settings.xml && \
     echo '</settings>' >> /root/.m2/settings.xml
