@@ -1,7 +1,7 @@
 FROM rocker/tidyverse:4.4
 
-ARG GITHUB_USERNAME
-ARG GITHUB_TOKEN
+ARG GH_USERNAME
+ARG GH_TOKEN
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -22,8 +22,8 @@ RUN mkdir -p /root/.m2 && \
     echo '  <servers>' >> /root/.m2/settings.xml && \
     echo '    <server>' >> /root/.m2/settings.xml && \
     echo '      <id>veupathdb</id>' >> /root/.m2/settings.xml && \
-    echo "      <username>${GITHUB_USERNAME}</username>" >> /root/.m2/settings.xml && \
-    echo "      <password>${GITHUB_TOKEN}</password>" >> /root/.m2/settings.xml && \
+    echo "      <username>${GH_USERNAME}</username>" >> /root/.m2/settings.xml && \
+    echo "      <password>${GH_TOKEN}</password>" >> /root/.m2/settings.xml && \
     echo '    </server>' >> /root/.m2/settings.xml && \
     echo '  </servers>' >> /root/.m2/settings.xml && \
     echo '</settings>' >> /root/.m2/settings.xml
