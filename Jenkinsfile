@@ -13,6 +13,6 @@ node('centos8') {
     [ name: 'edirect', dockerfile: "edirect/Dockerfile", path: "edirect" ],
     [ name: 'alpine_bash', dockerfile: "alpine_bash/Dockerfile", path: "alpine_bash" ],
     [ name: 'bioperl', dockerfile: "bioperl/Dockerfile", path: "bioperl" ],
-    [ name: 'studydealer', dockerfile: "studydealer/Dockerfile", path: "studydealer" ],
+    [ name: 'gusenv', dockerfile: "gusenv/Dockerfile", path: "gusenv" ],
   ])
 }
