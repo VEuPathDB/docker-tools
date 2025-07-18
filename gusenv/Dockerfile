@@ -1,12 +1,9 @@
 FROM rocker/tidyverse:4.4
 
-#ARG GH_USERNAME
-#ARG GH_TOKEN
-
 ENV DEBIAN_FRONTEND=noninteractive
 
-#ENV GITHUB_USERNAME=${GH_USERNAME}
-#ENV GITHUB_TOKEN=${GH_TOKEN}
+ARG GITHUB_USERNAME \
+    GITHUB_TOKEN
 
 RUN apt-get update && apt-get install -y git build-essential ant wget unzip perl unzip emacs maven && apt-get clean && apt-get purge && rm -rf /var/lib/apt/lists/* /tmp/*
 
@@ -18,19 +15,6 @@ ENV GUS_HOME=/gusApp/gus_home
 ENV PROJECT_HOME=/gusApp/project_home
 ENV PATH=$PROJECT_HOME/install/bin:$PATH
 ENV PATH=$GUS_HOME/bin:$PATH
-
-### comment out
-## Create the Maven settings.xml
-#RUN mkdir -p /root/.m2 && \
-#    echo '<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0">' > /root/.m2/settings.xml && \
-#    echo '  <servers>' >> /root/.m2/settings.xml && \
-#    echo '    <server>' >> /root/.m2/settings.xml && \
-#    echo '      <id>veupathdb</id>' >> /root/.m2/settings.xml && \
-#    echo "      <username>${GITHUB_USERNAME}</username>" >> /root/.m2/settings.xml && \
-#    echo "      <password>${GITHUB_TOKEN}</password>" >> /root/.m2/settings.xml && \
-#    echo '    </server>' >> /root/.m2/settings.xml && \
-#    echo '  </servers>' >> /root/.m2/settings.xml && \
-#    echo '</settings>' >> /root/.m2/settings.xml
 
 RUN export INSTALL_GIT_COMMIT_SHA=306fc4d29661fbd881211d92a1698bdbb2d23b2d \
     && git clone https://github.com/VEuPathDB/install.git \
