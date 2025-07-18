@@ -1,12 +1,9 @@
 FROM rocker/tidyverse:4.4
 
-#ARG GH_USERNAME
-#ARG GH_TOKEN
-
 ENV DEBIAN_FRONTEND=noninteractive
 
-#ENV GITHUB_USERNAME=${GH_USERNAME}
-#ENV GITHUB_TOKEN=${GH_TOKEN}
+ARG GITHUB_USERNAME \
+    GITHUB_TOKEN
 
 RUN apt-get update && apt-get install -y git build-essential ant wget unzip perl unzip emacs maven && apt-get clean && apt-get purge && rm -rf /var/lib/apt/lists/* /tmp/*
 
