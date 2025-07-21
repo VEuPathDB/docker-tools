@@ -7,6 +7,9 @@ USER root
 # this was causing an issue with apt update;  doesn't appear that any packages are installed from backports though
 RUN rm /etc/apt/sources.list.d/backports.list
 
+# debian buster repos are no longer available in the default repo URL so update URLs to point to archive.debian.org instead
+RUN sed -i -E 's/(security|deb)\.debian.org/archive\.debian.org/g' /etc/apt/sources.list
+
 # # Install dependencies
  RUN apt-get update && apt-get install -y build-essential wget unzip default-jre python3 python tabix procps liblzma-dev libcurl4-gnutls-dev zlib1g-dev libbz2-dev python-dev  git && apt-get clean && apt-get purge && rm -rf /var/lib/apt/lists/* /tmp/*
 
