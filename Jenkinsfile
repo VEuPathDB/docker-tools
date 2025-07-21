@@ -8,7 +8,7 @@ node('centos8') {
 
   builder.gitClone()
   builder.buildContainers([
-    //[ name: 'shortreadaligner', dockerfile: "shortreadaligner/Dockerfile", path: "shortreadaligner" ],
+    [ name: 'shortreadaligner', dockerfile: "shortreadaligner/Dockerfile", path: "shortreadaligner" ],
     [ name: 'vcf_parser_cnv', dockerfile: "vcf_parser_cnv/Dockerfile", path: "vcf_parser_cnv" ],
     [ name: 'edirect', dockerfile: "edirect/Dockerfile", path: "edirect" ],
     [ name: 'alpine_bash', dockerfile: "alpine_bash/Dockerfile", path: "alpine_bash" ],
