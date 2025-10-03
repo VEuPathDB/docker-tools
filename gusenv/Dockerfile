@@ -1,4 +1,4 @@
-FROM rocker/tidyverse:4.4
+FROM rocker/r-ver:4.5.1
 
 ENV DEBIAN_FRONTEND=noninteractive
 
