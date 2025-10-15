@@ -22,4 +22,11 @@ RUN apt-get update && apt-get install -y build-essential wget unzip default-jre 
 
 RUN pip3 install deeptools
 
+WORKDIR /app/bin
+
+# Add some kent-utils for making bigwig files
+RUN wget https://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bedGraphToBigWig && chmod guo+x bedGraphToBigWig
+RUN wget https://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bigWigMerge && chmod guo+x bigWigMerge
+ENV PATH="/app/bin:${PATH}"
+
 WORKDIR /work
