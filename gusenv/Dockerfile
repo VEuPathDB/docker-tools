@@ -67,4 +67,7 @@ RUN rm -rf /gusApp/gus_home/lib/perl/CBIL/TranscriptExpression
 #     && git checkout $APICOMMONDATA_GIT_COMMIT_SHA \
 #     && bld ApiCommonData/Load
 
+# install MetaCycle R package
+RUN R -e "install.packages('MetaCycle', dependencies=TRUE, repos='http://cran.rstudio.com/')"
+
 WORKDIR /work
