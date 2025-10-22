@@ -67,4 +67,11 @@ RUN rm -rf /gusApp/gus_home/lib/perl/CBIL/TranscriptExpression
 #     && git checkout $APICOMMONDATA_GIT_COMMIT_SHA \
 #     && bld ApiCommonData/Load
 
+# install MetaCycle R package
+RUN R -e "install.packages('MetaCycle', dependencies=TRUE, repos='http://cran.rstudio.com/')"
+
+# install marray from BioConductor
+RUN R -e "install.packages('BiocManager', dependencies=TRUE, repos='http://cran.rstudio.com/')"
+RUN R -e "requireNamespace('BiocManager'); BiocManager::install('marray', ask=FALSE)"
+
 WORKDIR /work
