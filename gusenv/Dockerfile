@@ -74,5 +74,9 @@ RUN R -e "install.packages('MetaCycle', dependencies=TRUE, repos='http://cran.rs
 RUN R -e "install.packages('BiocManager', dependencies=TRUE, repos='http://cran.rstudio.com/')"
 RUN R -e "requireNamespace('BiocManager'); BiocManager::install('marray', ask=FALSE)"
 RUN R -e "requireNamespace('BiocManager'); BiocManager::install('affy', ask=FALSE)"
+RUN R -e "requireNamespace('BiocManager'); BiocManager::install('makecdfenv', ask=FALSE)"
+RUN R -e "requireNamespace('BiocManager'); BiocManager::install('AnnotationDbi', ask=FALSE)"
+
+RUN R -e "requireNamespace('BiocManager'); BiocManager::install('preprocessCore', configure.args='--disable-threading', force=TRUE, update=TRUE, type='source')" 
 
 WORKDIR /work
