@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ARG GITHUB_USERNAME \
     GITHUB_TOKEN
 
-RUN apt-get update && apt-get install -y git build-essential ant wget unzip perl unzip maven libjson-perl libtie-ixhash-perl zlib1g-dev && apt-get clean && apt-get purge && rm -rf /var/lib/apt/lists/* /tmp/*
+RUN apt-get update && apt-get install -y git build-essential ant wget unzip perl unzip maven libjson-perl libtie-ixhash-perl libxml-simple-perl zlib1g-dev && apt-get clean && apt-get purge && rm -rf /var/lib/apt/lists/* /tmp/*
 
 
 WORKDIR /gusApp
