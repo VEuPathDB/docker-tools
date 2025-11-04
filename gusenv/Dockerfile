@@ -39,6 +39,11 @@ RUN export CBIL_GIT_COMMIT_SHA=9c580cab4f7664e435d04ab44d82c019bd432829 \
     && bld CBIL
 
 
+RUN export GGTOOLS_GIT_COMMIT_SHA=99757dca7718e49b84d42ff2baf52fbd10570dfd \
+    && git clone https://github.com/VEuPathDB/GGTools.git \
+    && cd GGTools \
+    && git checkout $GGTOOLS_GIT_COMMIT_SHA \
+    && bld GGTools
 
 RUN rm -rf /gusApp/gus_home/lib/perl/CBIL/StudyAssayResults
 RUN rm -rf /gusApp/gus_home/lib/perl/CBIL/TranscriptExpression
