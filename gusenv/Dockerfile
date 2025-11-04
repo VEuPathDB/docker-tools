@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ARG GITHUB_USERNAME \
     GITHUB_TOKEN
 
-RUN apt-get update && apt-get install -y git build-essential ant wget unzip perl unzip maven libjson-perl libtie-ixhash-perl libxml-simple-perl zlib1g-dev && apt-get clean && apt-get purge && rm -rf /var/lib/apt/lists/* /tmp/*
+RUN apt-get update && apt-get install -y default-jre default-jdk git build-essential ant wget unzip perl unzip maven libjson-perl libtie-ixhash-perl libxml-simple-perl zlib1g-dev && apt-get clean && apt-get purge && rm -rf /var/lib/apt/lists/* /tmp/*
 
 
 WORKDIR /gusApp
@@ -76,12 +76,12 @@ RUN rm -rf /gusApp/gus_home/lib/perl/CBIL/TranscriptExpression
 RUN R -e "install.packages('MetaCycle', dependencies=TRUE, repos='http://cran.rstudio.com/')"
 
 # install marray and affy from BioConductor
-RUN R -e "install.packages('BiocManager', dependencies=TRUE, repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages('BiocManager', repos='http://cran.rstudio.com/')"
 RUN R -e "requireNamespace('BiocManager'); BiocManager::install('marray', ask=FALSE)"
 RUN R -e "requireNamespace('BiocManager'); BiocManager::install('affy', ask=FALSE)"
 RUN R -e "requireNamespace('BiocManager'); BiocManager::install('makecdfenv', ask=FALSE)"
 RUN R -e "requireNamespace('BiocManager'); BiocManager::install('AnnotationDbi', ask=FALSE)"
 
-RUN R -e "requireNamespace('BiocManager'); BiocManager::install('preprocessCore', configure.args='--disable-threading', force=TRUE, update=TRUE, type='source')" 
+RUN R -e "requireNamespace('BiocManager'); BiocManager::install('preprocessCore', configure.args='--disable-threading', force=TRUE, update=TRUE, type='source')"
 
 WORKDIR /work
