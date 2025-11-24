@@ -84,4 +84,6 @@ RUN R -e "requireNamespace('BiocManager'); BiocManager::install('AnnotationDbi',
 
 RUN R -e "requireNamespace('BiocManager'); BiocManager::install('preprocessCore', configure.args='--disable-threading', force=TRUE, update=TRUE, type='source')"
 
+RUN R -e "requireNamespace('BiocManager'); BiocManager::install('pdInfoBuilder', ask=FALSE)"
+
 WORKDIR /work
