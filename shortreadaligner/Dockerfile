@@ -3,9 +3,8 @@ FROM staphb/samtools:1.22.1
 
 # This image has samtools, bedtools and deeptools;  All for processing sam/bam files; 
 
-
 # # Install dependencies
-RUN apt-get update && apt-get install -y build-essential wget unzip default-jre tabix procps libxml-simple-perl libjson-perl libtie-ixhash-perl liblzma-dev libcurl4-gnutls-dev zlib1g-dev libbz2-dev python3 python-setuptools python3-pip python3-venv git bedtools && apt-get clean && apt-get purge && rm -rf /var/lib/apt/lists/* /tmp/*
+RUN apt-get update && apt-get install -y build-essential wget unzip default-jre tabix procps libxml-simple-perl libjson-perl libtie-ixhash-perl liblzma-dev libcurl4-gnutls-dev zlib1g-dev libbz2-dev python3 python-setuptools python3-pip python3-venv git bedtools bzip2 libncurses5-dev && apt-get clean && apt-get purge && rm -rf /var/lib/apt/lists/* /tmp/*
 
 # download software
 # WORKDIR /usr/local/
@@ -22,12 +21,9 @@ RUN apt-get update && apt-get install -y build-essential wget unzip default-jre 
 
 RUN pip3 install deeptools
 
-WORKDIR /app/bin
-
-# Add some kent-utils for making bigwig files
-RUN wget https://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bedGraphToBigWig && chmod guo+x bedGraphToBigWig
-RUN wget https://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bigWigMerge && chmod guo+x bigWigMerge
-ENV PATH="/app/bin:${PATH}"
+RUN wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/bedGraphToBigWig
+RUN chmod +x bedGraphToBigWig
+RUN mv bedGraphToBigWig /usr/local/
 
 WORKDIR /work
 
