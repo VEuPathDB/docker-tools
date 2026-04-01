@@ -1,6 +1,5 @@
 FROM staphb/samtools:1.22.1
 
-
 # This image has samtools, bedtools and deeptools;  All for processing sam/bam files; 
 
 # # Install dependencies
@@ -16,14 +15,14 @@ RUN apt-get update && apt-get install -y build-essential wget unzip default-jre 
 # RUN make
 
 # RUN ln -s /usr/local/hisat2/hisat2* /usr/local/bin/
-# COPY ./bin/* /usr/local/bin/
-# COPY ./lib/perl/* /usr/local/lib/site_perl/
+COPY ./bin/* /usr/local/bin/
+COPY ./lib/perl/* /usr/local/lib/site_perl/
 
 RUN pip3 install deeptools
 
-RUN wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/bedGraphToBigWig
-RUN chmod +x bedGraphToBigWig
-RUN mv bedGraphToBigWig /usr/local/
+RUN wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/bedGraphToBigWig && \
+      chmod +x bedGraphToBigWig && \
+      mv bedGraphToBigWig /usr/local/bin/
 
 WORKDIR /work
 
