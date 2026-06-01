@@ -20,11 +20,6 @@ COPY ./lib/perl/* /usr/local/lib/site_perl/
 
 RUN pip3 install deeptools
 
-RUN for tool in bedGraphToBigWig bigWigMerge; do \ 
-        wget -q http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/${tool} && \
-        chmod +x ${tool} && \
-        mv ${tool} /usr/local/bin/; \
-    done 
 
 WORKDIR /work
 
