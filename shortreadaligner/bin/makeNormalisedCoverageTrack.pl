@@ -48,8 +48,10 @@ close (BED);
 
 sub getConstant {
     my ($ploidy, $coverageValues) = @_;
+    my @nonzero = grep { $_ > 0 } @{$coverageValues};
+    die "Median coverage is zero (all windows have zero coverage) — sample has insufficient mapped reads to normalize\n" unless @nonzero;
     my $stat = Statistics::Descriptive::Full->new();
-    $stat->add_data(@{$coverageValues});
+    $stat->add_data(@nonzero);
     return $ploidy/$stat->median();
 }
 
