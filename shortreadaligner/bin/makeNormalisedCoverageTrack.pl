@@ -25,11 +25,13 @@ my $coverages;
 while (<COV>) {
     my ($chr, $start, $end, $coverage) = split (/\t/, $_);
     die "Line $_ in coverage file $coverageFile is incomplete\n" unless (defined ($chr) && defined ($start) && defined ($end) && defined ($coverage));
+    # Windows on sequences not in --chromosomes (e.g. unplaced contigs/scaffolds
+    # in a mixed chromosome+contig assembly) are neither used for the baseline
+    # median nor emitted — CNV normalisation is only meaningful relative to the
+    # named chromosomes.
+    next unless (any {$_ eq $chr} @chrs);
     push (@{$coverages}, ([$chr, $start, $end, $coverage]));
-    # exclude unordered "bin" chromosomes from calculation of median
-    if (any {$_ eq $chr} @chrs) {
-        push (@{$coverageValues}, $coverage);
-    }
+    push (@{$coverageValues}, $coverage);
 }
 
 die "No coverage values were collected — no chromosomes in $coverageFile matched those in $chromosomes\n" unless $coverageValues && @{$coverageValues};
