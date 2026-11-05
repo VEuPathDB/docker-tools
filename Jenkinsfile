@@ -14,5 +14,6 @@ node('centos8') {
     [ name: 'alpine_bash', dockerfile: "alpine_bash/Dockerfile", path: "alpine_bash" ],
     [ name: 'bioperl', dockerfile: "bioperl/Dockerfile", path: "bioperl" ],
     [ name: 'gusenv', dockerfile: "gusenv/Dockerfile", path: "gusenv" ],
+    [ name: 'gus_isf', dockerfile: "gus_isf/Dockerfile", path: "gus_isf" ],
   ])
 }
